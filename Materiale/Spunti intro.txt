@@ -1,0 +1,36 @@
+WebAssembly (WASM) is a new technology that has gained popularity in recent years as a safe and secure way to create web-based applications. 
+WASM is a low-level, assembly-like language that can be compiled to run on web browsers, allowing developers to create powerful applications without the need for plug-ins or other software.
+
+WASM makes use of two key technologies: a binary instruction format and a web-based virtual machine. 
+The binary instruction format is designed to make it easier to compile code into a language that can be run on the web. 
+This binary code is then interpreted by the web-based virtual machine, which is responsible for executing the instructions. 
+This way, the code can be converted into a format that can be understood by the browser.
+
+The WebAssembly System Interface (WASI) is an important part of WASM that provides a set of APIs for interfacing with the web browser. 
+WASI is designed to give developers more control over the application and provide access to browser-level features such as network access, file access, and other low-level features.
+
+WASM and WASI are part of a growing trend of web-based technologies that are revolutionizing the way developers create applications. 
+WASM and WASI provide developers with a secure, efficient, and powerful way to create web-based applications without the need for plug-ins or other software. 
+This allows developers to create powerful applications that can be used on any device, and in any browser.
+
+In conclusion, WASM and WASI are key technologies that are revolutionizing the way developers create web-based applications. 
+WASM and WASI provide developers with a secure, efficient, and powerful way to create powerful applications without the need for plug-ins or other software. 
+This allows developers to create powerful applications that can be used on any device, and in any browser.
+
+---
+
+WebAssembly (WASM) and WebAssembly System Interface (WASI) are two cutting-edge technologies that are revolutionizing the way web applications are built. 
+WebAssembly, or WASM, is a low-level, assembly-like language that is compiled to run in the web browser. WASI is an interface that allows WASM modules to interact with the underlying operating system. 
+Together, these technologies enable developers to create powerful, high-performance web applications with lower development costs and faster delivery times.
+
+WASM is an ideal choice for web applications because it enables developers to write code in a language that is both familiar and highly efficient. 
+By compiling code to WASM, developers can leverage existing programming skills and knowledge of established languages like C and C++. 
+Furthermore, WASM code is highly efficient and can be compressed to take up less space, resulting in faster loading times for web applications.
+
+WASI is an important part of the WASM ecosystem because it allows developers to write WASM modules that interact with the underlying operating system. 
+By using WASI, WASM modules can access system calls, files, and environment variables, enabling developers to create powerful, full-featured web applications that can interact with the user’s environment. 
+This opens up a wide range of possibilities for web applications, including the ability to access resources from the user’s local network and to access system resources like audio and video.
+
+In conclusion, WASM and WASI are two powerful technologies that are revolutionizing the way web applications are built. 
+By enabling developers to write code in a language that is both familiar and efficient, and to access system resources through WASI, these technologies are making it easier and faster to develop powerful, full-featured web applications. 
+With the increasing popularity of these technologies, the future of web application development looks brighter than ever.
