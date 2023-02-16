@@ -1,11 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-#define N 3
+#define N 9
 
-double determinant(double a[][N], int n)
+long determinant(int a[N][N], int n)
 {
-  double det = 0, submatrix[N][N];
-  int i, j, k, m;
+  long det = 0;
+  int submatrix[N][N];
+  int i, j, k, l, m, o;
 
   if (n == 2)
   {
@@ -15,20 +18,27 @@ double determinant(double a[][N], int n)
   {
     for (i = 0; i < n; i++)
     {
-      m = 0;
-      for (j = 1; j < n; j++)
+      for (j = 0; j < n; j++)
       {
+        m = 0;
         for (k = 0; k < n; k++)
         {
+          o = 0;
           if (k == i)
           {
             continue;
           }
-          submatrix[m][k] = a[j][k];
+          for (l = 0; l < N; l++)
+          {
+            if (l == j)
+              continue;
+            submatrix[m][o++] = a[k][l];
+          }
+          m++;
         }
-        m++;
+
+        det += ((i + j) % 2 == 1 ? -1.0 : 1.0) * a[i][j] * determinant(submatrix, n - 1);
       }
-      det += (i % 2 == 1 ? -1.0 : 1.0) * a[0][i] * determinant(submatrix, n - 1);
     }
   }
   return det;
@@ -36,11 +46,19 @@ double determinant(double a[][N], int n)
 
 int main()
 {
-  double a[N][N] = {{1, 2, 3},
-                    {4, 5, 6},
-                    {7, 8, 9}};
+  int a[N][N];
+  srand(time(NULL));
 
-  printf("Determinant of matrix A: %lf", determinant(a, N));
+  for (int i = 0; i < N; i++)
+  {
+    for (int j = 0; j < N; j++)
+    {
+      a[i][j] = rand() % 10;
+      printf("%d\t", a[i][j]);
+    }
+    printf("\n");
+  }
+  printf("Determinant of matrix A: %ld\n", determinant(a, N));
 
   return 0;
 }
