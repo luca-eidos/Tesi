@@ -6,7 +6,7 @@
 
 #define N_DEF 3000
 
-int lu_decompose(double **A, int n, double tol, int *p)
+int lu_decompose(double **a, int n, double tol, int *p)
 {
   int i, j, k, imax;
   double maxA, *ptr, absA;
@@ -20,7 +20,7 @@ int lu_decompose(double **A, int n, double tol, int *p)
     imax = i;
 
     for (k = i; k < n; k++)
-      if ((absA = fabs(A[k][i])) > maxA)
+      if ((absA = fabs(a[k][i])) > maxA)
       {
         maxA = absA;
         imax = k;
@@ -37,9 +37,9 @@ int lu_decompose(double **A, int n, double tol, int *p)
       p[imax] = j;
 
       // pivoting rows of A
-      ptr = A[i];
-      A[i] = A[imax];
-      A[imax] = ptr;
+      ptr = a[i];
+      a[i] = a[imax];
+      a[imax] = ptr;
 
       // counting pivots starting from n (for determinant)
       p[n]++;
@@ -47,10 +47,10 @@ int lu_decompose(double **A, int n, double tol, int *p)
 
     for (j = i + 1; j < n; j++)
     {
-      A[j][i] /= A[i][i];
+      a[j][i] /= a[i][i];
 
       for (k = i + 1; k < n; k++)
-        A[j][k] -= A[j][i] * A[i][k];
+        a[j][k] -= a[j][i] * a[i][k];
     }
   }
 
