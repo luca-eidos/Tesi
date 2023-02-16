@@ -93,7 +93,7 @@ int main(int argc, char **argv)
   }
 
   double **a = (double **)(malloc(sizeof(double *) * N));
-  int p[N + 1];
+  int *p = (int *)malloc(sizeof(int) * N);
   srand(time(NULL));
 
   for (int i = 0; i < N; i++)
