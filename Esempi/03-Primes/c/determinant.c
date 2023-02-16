@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define N 9
+#define N 8
 
 long determinant(int a[N][N], int n)
 {
