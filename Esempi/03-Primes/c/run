@@ -3,7 +3,7 @@
 set -e
 
 OFLAGS="-Ofast -march=native -mtune=native -funroll-all-loops"
-SIZE=1000000
+SIZE=1000000000
 
 while [[ $1 != "" ]]; do
     case $1 in
@@ -29,4 +29,4 @@ if [[ $DEBUG ]]; then
     done
 fi
 
-./sieve $DEBUG --size 1000000000 # --secs 10
+./sieve $DEBUG --size $SIZE # --secs 10

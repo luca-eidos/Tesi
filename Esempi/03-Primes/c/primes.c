@@ -1,19 +1,22 @@
 #include <stdio.h>
-#include <math.h>
+#include <stdint.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
-#define N 100000000
+#define N 120000000
 
-int SieveOfEratosthenes()
+int main()
 {
-  // Create a boolean array "prime[0..N]" and initialize all entries it as true.
-  // A value in prime[i] will finally be false if i is Not a prime, else true.
-  int result = 0;
-  bool prime[N + 1];
-  for (int i = 0; i <= N; i++)
+  // printf("Prime numbers less than or equal to %d:\n", N);
+
+  int64_t result = 0;
+
+  bool *prime = (bool *)malloc((N + 1) * sizeof(bool));
+
+  for (int i = 0; i < N; i++)
     prime[i] = true;
 
-  for (int p = 2; p * p <= N; p++)
+  for (int64_t p = 2; p * p <= N; p++)
   {
     // If prime[p] is not changed, then it is a prime
     if (prime[p] == true)
@@ -24,17 +27,10 @@ int SieveOfEratosthenes()
     }
   }
 
-  // Print all prime numbers
-  for (int p = 2; p <= N; p++)
+  for (int64_t p = 2; p <= N; p++)
     if (prime[p])
       result++;
 
-  return result;
-}
-
-// Driver code
-int main()
-{
-  printf("Prime numbers less than or equal to %d: %d", N, SieveOfEratosthenes());
+  // printf("%ld\n", result);
   return 0;
 }

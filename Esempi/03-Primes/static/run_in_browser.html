@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Run Primes function in browser</title>
+  </head>
+  <body>
+    <script type="module">
+      import { Fd } from "./src/fd.js";
+      import { File, Directory } from "./src/fs_core.js";
+      import { PreopenDirectory } from "./src/fs_fd.js";
+      import WASI from "./src/wasi.js";
+      import { strace } from "./src/strace.js";
+
+      import { getPrimesCount } from "./src/primes.mjs";
+
+      /*
+      let args = [];
+      let env = [];
+      let fds = [
+        new File([]), // stdin
+        new File([]), // stdout
+        new File([]), // stderr
+        new PreopenDirectory(".", {
+          
+        }),
+      ];
+      let wasi = new WASI(args, env, fds);
+
+      let wasm = await WebAssembly.compileStreaming(fetch("primes.wasm"));
+      let inst = await WebAssembly.instantiate(wasm, {
+        wasi_snapshot_preview1: wasi.wasiImport,
+      });
+      */
+      const importObject = {
+        imports: {},
+      };
+
+      console.time("wasi");
+      // wasi.start(inst);
+      WebAssembly.instantiateStreaming(fetch("primes.wasm"), importObject).then(
+        (obj) => {
+          console.log(obj);
+          obj.instance.exports.main();
+        }
+      );
+      console.timeEnd("wasi");
+
+      console.time("js");
+      getPrimesCount();
+      console.timeEnd("js");
+    </script>
+  </body>
+</html>
