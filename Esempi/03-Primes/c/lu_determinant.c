@@ -6,13 +6,13 @@
 
 #define N_DEF 3000
 
-int lu_decompose(double **A, int n, double Tol, int *P)
+int lu_decompose(double **A, int n, double tol, int *p)
 {
   int i, j, k, imax;
   double maxA, *ptr, absA;
 
   for (i = 0; i <= n; i++)
-    P[i] = i; // Unit permutation matrix, P[n] initialized with n
+    p[i] = i; // Unit permutation matrix, P[n] initialized with n
 
   for (i = 0; i < n; i++)
   {
@@ -26,15 +26,15 @@ int lu_decompose(double **A, int n, double Tol, int *P)
         imax = k;
       }
 
-    if (maxA < Tol)
+    if (maxA < tol)
       return 0; // failure, matrix is degenerate
 
     if (imax != i)
     {
       // pivoting P
-      j = P[i];
-      P[i] = P[imax];
-      P[imax] = j;
+      j = p[i];
+      p[i] = p[imax];
+      p[imax] = j;
 
       // pivoting rows of A
       ptr = A[i];
@@ -42,7 +42,7 @@ int lu_decompose(double **A, int n, double Tol, int *P)
       A[imax] = ptr;
 
       // counting pivots starting from n (for determinant)
-      P[n]++;
+      p[n]++;
     }
 
     for (j = i + 1; j < n; j++)
@@ -59,7 +59,6 @@ int lu_decompose(double **A, int n, double Tol, int *P)
 
 double lu_determinant(double **A, int *P, int n)
 {
-
   double det = A[0][0];
 
   for (int i = 1; i < n; i++)
@@ -105,21 +104,21 @@ int main(int argc, char **argv)
     }
   }
 
-  if (N <= 100)
+  if (N <= 10)
   {
     print_matrix(a, N);
   }
 
   if (lu_decompose(a, N, 0.0001, p))
   {
-    printf("lu_decompose successful\n");
-    if (N <= 100)
+    // printf("lu_decompose successful\n");
+    if (N <= 10)
     {
       printf("Decomposed matrix:\n");
       print_matrix(a, N);
     }
 
-    printf("Determinant of matrix A: %lf\n", lu_determinant(a, p, N));
+    lu_determinant(a, p, N);
   }
   else
   {
