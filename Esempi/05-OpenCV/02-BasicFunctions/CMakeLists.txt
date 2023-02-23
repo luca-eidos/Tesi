@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.20)
+project( BasicFunctions )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( BasicFunctions BasicFunctions.cpp )
+target_link_libraries( BasicFunctions ${OpenCV_LIBS} )
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall  -O3 -march=native -std=c++11")

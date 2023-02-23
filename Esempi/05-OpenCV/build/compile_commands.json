@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/luca/Tesi/Esempi/05-OpenCV/build",
+  "command": "/usr/bin/g++ -isystem /usr/local/include/opencv4 -g -o CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o -c /home/luca/Tesi/Esempi/05-OpenCV/01-DisplayImage/DisplayImage.cpp",
+  "file": "/home/luca/Tesi/Esempi/05-OpenCV/01-DisplayImage/DisplayImage.cpp"
+}
+]

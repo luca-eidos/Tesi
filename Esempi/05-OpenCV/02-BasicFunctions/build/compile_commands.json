@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/luca/Tesi/Esempi/05-OpenCV/02-BasicFunctions/build",
+  "command": "/usr/bin/c++ -isystem /usr/local/include/opencv4 -g -o CMakeFiles/BasicFunctions.dir/BasicFunctions.cpp.o -c /home/luca/Tesi/Esempi/05-OpenCV/02-BasicFunctions/BasicFunctions.cpp",
+  "file": "/home/luca/Tesi/Esempi/05-OpenCV/02-BasicFunctions/BasicFunctions.cpp"
+}
+]

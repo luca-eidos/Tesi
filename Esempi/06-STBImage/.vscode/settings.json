@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stb_image_write.h": "c",
+        "utils.h": "c",
+        "stdio.h": "c",
+        "image.h": "c",
+        "stdlib.h": "c",
+        "math.h": "c"
+    }
+}
