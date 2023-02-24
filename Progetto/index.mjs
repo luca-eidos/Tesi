@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import multer from "multer";
-import { validateImage, tmpFolder } from "./utils.mjs"
+import { validateImage, tmpFolder } from "./requests/utils.mjs"
 import { toBlackAndWhite } from "./requests/black_and_white.mjs";
 
 const app = express();
