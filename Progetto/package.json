@@ -1,0 +1,12 @@
+{
+  "name": "image_processing_stb",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "author": "Luca Giovannini",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "tmp": "^0.2.1"
+  }
+}
