@@ -1,9 +1,10 @@
 import { WASI } from 'wasi';
 import { argv, env } from 'node:process';
+import { readFile } from 'node:fs/promises';
 import tmp from "tmp";
+import fs from "fs";
 
-const runWasi = async (imagePath) => {
-  const output = tmp.fileSync({ mode: 0o644, postfix: imagePath }).name;
+const runWasi = async (imagePath, output) => {
   const wasi = new WASI({
     args: [
       argv[0], 
@@ -19,7 +20,7 @@ const runWasi = async (imagePath) => {
   const importObject = { wasi_snapshot_preview1: wasi.wasiImport };
   
   const wasm = await WebAssembly.compile(
-    await readFile(new URL('./bin/black_and_white.wasm', import.meta.url))
+    await readFile(new URL('../bin/black_and_white.wasm', import.meta.url))
   );
   const instance = await WebAssembly.instantiate(wasm, importObject);
 
@@ -27,22 +28,24 @@ const runWasi = async (imagePath) => {
   return output;
 }
 
-
 export const toBlackAndWhite = async (req, res) => {
-  const { imagePath } = req;
+  const imagePath = req.file.path;
 
   // Convert the image to black and white
-  const output = await runWasi(imagePath);
-  const contentType = output.endsWith("png") ? "image/png" : "image/jpeg";
+  const output = tmp.fileSync({ 
+    mode: 0o644, 
+    postfix: (req.file.mimetype === 'image/jpeg')? ".jpg" : ".png" 
+  }).name;
+  await runWasi(imagePath, output);
 
   // Read the uploaded file from disk and send it back to the client
-  fs.readFile(imagePath, (err, data) => {
+  fs.readFile(output, (err, data) => {
     if (err) {
       return res.status(500).json({ error: 'Error reading file.' });
     }
-    res.contentType(contentType);
+    res.contentType(req.file.mimetype);
     res.send(data);
-    fs.unlink(imagePath, (err) => {
+    fs.unlink(output, (err) => {
       if (err) {
         console.error(`Error deleting file ${output}:`, err);
       }
