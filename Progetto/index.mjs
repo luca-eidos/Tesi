@@ -8,11 +8,11 @@ import { toBlackAndWhite } from "./requests/black_and_white.mjs";
 
 const app = express();
 
-// middlewares
+// Middlewares
 app.use(cors());
-app.use(multer({ dest: tmpFolder }).single('image'));
-app.use(bodyParser.json({ limit: '5mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }));
+app.use(multer({ dest: tmpFolder }).single("image"));
+app.use(bodyParser.json({ limit: "5mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "5mb" }));
 
 const port = 5000;
 
@@ -20,6 +20,6 @@ const port = 5000;
 app.use(express.static("client/build"));
 
 // Endpoints
-app.post('/black-and-white', validateImage, toBlackAndWhite);
+app.post("/black-and-white", validateImage, toBlackAndWhite);
 
 app.listen(port);
