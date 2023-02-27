@@ -46,7 +46,7 @@ export const runWasi = async (filename, ...wasmArgs) => {
   wasi.start(instance);
 }
 
-export const runAndCleanup = async (req, res, filename, ...otherArgs) => {
+export const handleRun = async (req, res, filename, ...otherArgs) => {
   const imagePath = req.file.path;
 
   // Convert the image to black and white

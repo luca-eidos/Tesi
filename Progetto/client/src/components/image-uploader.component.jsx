@@ -27,7 +27,7 @@ function ImageUploader() {
   };
 
   return (
-    <div>
+    <div className='table'>
       <label htmlFor="file-input">Choose a .jpg or .png file:</label>
       <input type="file" id="file-input" name="file" accept=".jpg,.png" onChange={handleFileChange} />
       <button onClick={handleConvertToBlackAndWhite}>To Black and White</button>
