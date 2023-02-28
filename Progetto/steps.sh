@@ -30,4 +30,12 @@ cd ..
 node server.mjs
 # <image>
 
+# copy stb lib
+cd c
+git clone git@github.com:nothings/stb.git
+mv stb stb_image
+mkdir stb
+cp stb_image/*.h stb_image/*.c stb
+rm -r stb_image
+
 

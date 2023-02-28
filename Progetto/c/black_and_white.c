@@ -17,7 +17,7 @@ int main(int argc, char **argv)
   // Convert the image to gray
   Image_to_gray(&img_input, &img_output);
 
-  // Save images
+  // Save image
   Image_save(&img_output, argv[2]);
 
   // Release memory
