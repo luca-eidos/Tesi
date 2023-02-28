@@ -12,7 +12,7 @@ export default function ImageUploader() {
     const formData = new FormData();
     formData.append("image", selectedFile);
 
-    fetch("http://localhost:5000/black-and-white", {
+    fetch("http://localhost:5000/gray-scale", {
       method: "POST",
       body: formData,
     })
