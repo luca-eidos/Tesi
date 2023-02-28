@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-function ImageUploader() {
+export default function ImageUploader() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
 
@@ -8,32 +8,36 @@ function ImageUploader() {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleConvertToBlackAndWhite = () => {
+  const handleConvertToGrayScale = () => {
     const formData = new FormData();
-    formData.append('image', selectedFile);
+    formData.append("image", selectedFile);
 
-    fetch('http://localhost:5000/black-and-white', {
-      method: 'POST',
-      body: formData
+    fetch("http://localhost:5000/black-and-white", {
+      method: "POST",
+      body: formData,
     })
-      .then(response => response.blob())
-      .then(blob => {
+      .then((response) => response.blob())
+      .then((blob) => {
         const objectURL = URL.createObjectURL(blob);
         setImageSrc(objectURL);
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
   };
 
   return (
-    <div className='table'>
+    <div className="table">
       <label htmlFor="file-input">Choose a .jpg or .png file:</label>
-      <input type="file" id="file-input" name="file" accept=".jpg,.png" onChange={handleFileChange} />
-      <button onClick={handleConvertToBlackAndWhite}>To Black and White</button>
-      {imageSrc && <img src={imageSrc} alt="Converted to black and white" />}
+      <input
+        type="file"
+        id="file-input"
+        name="file"
+        accept=".jpg,.png"
+        onChange={handleFileChange}
+      />
+      <button onClick={handleConvertToGrayScale}>To Gray Scale</button>
+      {imageSrc && <img src={imageSrc} alt="Converted to Gray Scale" />}
     </div>
   );
 }
-
-export default ImageUploader;
