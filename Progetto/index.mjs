@@ -4,7 +4,7 @@ import cors from "cors";
 import multer from "multer";
 
 import { validateImage, tmpFolder } from "./requests/utils.mjs";
-import { toBlackAndWhite } from "./requests/black_and_white.mjs";
+import { toGrayScale } from "./requests/gray_scale.mjs";
 
 const app = express();
 
@@ -20,6 +20,6 @@ const port = 5000;
 app.use(express.static("client/build"));
 
 // Endpoints
-app.post("/black-and-white", validateImage, toBlackAndWhite);
+app.post("/gray-scale", validateImage, toGrayScale);
 
 app.listen(port);
