@@ -30,23 +30,79 @@ export default function ImageUploader() {
       });
   };
 
-  const handleConvertToGrayScale = () => {
-    handleRequest("gray-scale");
-  };
-
   return (
-    <div className="table">
-      <label htmlFor="file-input">Choose a .jpg or .png file:</label>
-      <input
-        type="file"
-        id="file-input"
-        name="file"
-        accept=".jpg,.png"
-        onChange={handleFileChange}
-      />
-      <button onClick={handleConvertToGrayScale}>To Gray Scale</button>
-      {selectedFileUrl && <img src={selectedFileUrl} alt="Selected" />}
-      {imageSrc && <img src={imageSrc} alt="Converted to Gray Scale" />}
+    <div className="container">
+      <div className="table">
+        <label htmlFor="file-input">Choose a .jpg or .png file:</label>
+        <input
+          type="file"
+          id="file-input"
+          name="file"
+          accept=".jpg,.png"
+          onChange={handleFileChange}
+        />
+        <label>Parameters:</label>
+        <div className="container">
+          <label htmlFor="resize">Size (%)</label>
+          <input
+            type="range"
+            name="resize"
+            min={1}
+            max={100}
+            defaultValue={100}
+          />
+        </div>
+
+        <div className="container">
+          <label htmlFor="resize">Brightness (%)</label>
+          <input
+            type="range"
+            name="resize"
+            min={1}
+            max={100}
+            defaultValue={100}
+          />
+        </div>
+
+        <div className="container">
+          <label htmlFor="resize">Contrast (%)</label>
+          <input
+            type="range"
+            name="resize"
+            min={1}
+            max={100}
+            defaultValue={50}
+          />
+        </div>
+
+        <label>Commands:</label>
+        <button onClick={() => handleRequest("gray-scale")}>
+          To Gray Scale
+        </button>
+        <button onClick={() => handleRequest("sepia")}>To Sepia</button>
+        <button>Rotate 90°</button>
+        <button>Resize</button>
+        <button>Blur</button>
+        <button>Sharpen</button>
+        <button>Convert JPG/PNG</button>
+        <button>Crop</button>
+      </div>
+      {selectedFileUrl && (
+        <div className="table expand center">
+          {selectedFileUrl && (
+            <>
+              <label>Original:</label>
+              <img src={selectedFileUrl} alt="Selected" />
+            </>
+          )}
+          {imageSrc && (
+            <>
+              <label>Modified:</label>
+              <img src={imageSrc} alt="Modified" />
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

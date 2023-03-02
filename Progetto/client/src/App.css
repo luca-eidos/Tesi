@@ -5,9 +5,28 @@
   flex-direction: column;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .table {
   display: flex;
+  flex-direction: column;
+  margin: 8px;
+}
+
+.table * {
+  margin-bottom: 8px;
+}
+
+.center {
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+}
+
+.expand {
+  width: 100%;
 }
