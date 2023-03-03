@@ -30,5 +30,6 @@ void Image_save(const Image *img, const char *fname);
 void Image_free(Image *img);
 void Image_to_gray(const Image *orig, Image *gray);
 void Image_to_sepia(const Image *orig, Image *sepia);
+void Image_resize(const Image *orig, Image *resized, int percentage);
 
 #endif

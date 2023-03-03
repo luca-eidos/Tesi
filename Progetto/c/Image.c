@@ -5,6 +5,8 @@
 #include "stb/stb_image.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb/stb_image_write.h"
+#define STB_IMAGE_RESIZE_IMPLEMENTATION
+#include "stb/stb_image_resize.h"
 
 void Image_load(Image *img, const char *fname)
 {
@@ -108,4 +110,11 @@ void Image_to_sepia(const Image *orig, Image *sepia)
       *(pg + 3) = *(p + 3);
     }
   }
+}
+
+void Image_resize(const Image *orig, Image *resized, int percentage){
+  ON_ERROR_EXIT(!(orig->allocation_ != NO_ALLOCATION && orig->channels >= 3), "The input image must have at least 3 channels.");
+  Image_create(resized, orig->width * percentage / 100, orig->height * percentage / 100, orig->channels, false);
+  ON_ERROR_EXIT(resized->data == NULL, "Error in creating the image");
+  stbir_resize_uint8(orig->data, orig->width, orig->height, 0, resized->data, resized->width, resized->height, 0, orig->channels);
 }

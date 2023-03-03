@@ -4,7 +4,7 @@ import cors from "cors";
 import multer from "multer";
 
 import { validateImage, tmpFolder } from "./requests/utils.mjs";
-import { toGrayScale } from "./requests/gray_scale.mjs";
+import { toGrayScale, toSepia, resize } from "./requests/endpoints.mjs";
 
 const app = express();
 
@@ -21,5 +21,7 @@ app.use(express.static("client/build"));
 
 // Endpoints
 app.post("/gray-scale", validateImage, toGrayScale);
+app.post("/sepia", validateImage, toSepia);
+app.post("/resize", validateImage, resize);
 
 app.listen(port);

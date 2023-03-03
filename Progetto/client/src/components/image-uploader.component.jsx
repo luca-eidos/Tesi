@@ -4,6 +4,7 @@ export default function ImageUploader() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileUrl, setSelectedFileUrl] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
+  const [resizePerc, setResizePerc] = useState(100);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -12,6 +13,8 @@ export default function ImageUploader() {
   };
 
   const handleRequest = (endpoint, args = undefined) => {
+    // console.log(args);
+
     const formData = new FormData();
     formData.append("image", selectedFile);
     if (args) formData.append("args", JSON.stringify(args));
@@ -49,7 +52,8 @@ export default function ImageUploader() {
             name="resize"
             min={1}
             max={100}
-            defaultValue={100}
+            value={resizePerc}
+            onChange={(e) => setResizePerc(parseInt(e.target.value))}
           />
         </div>
 
@@ -81,7 +85,9 @@ export default function ImageUploader() {
         </button>
         <button onClick={() => handleRequest("sepia")}>To Sepia</button>
         <button>Rotate 90°</button>
-        <button>Resize</button>
+        <button onClick={() => handleRequest("resize", { perc: resizePerc })}>
+          Resize
+        </button>
         <button>Blur</button>
         <button>Sharpen</button>
         <button>Convert JPG/PNG</button>
