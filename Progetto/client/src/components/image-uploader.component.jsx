@@ -4,6 +4,7 @@ export default function ImageUploader() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileUrl, setSelectedFileUrl] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
+  const [imageSrcUrl, setImageSrcUrl] = useState(null);
   const [resizePerc, setResizePerc] = useState(100);
 
   const handleFileChange = (event) => {
@@ -25,8 +26,9 @@ export default function ImageUploader() {
     })
       .then((response) => response.blob())
       .then((blob) => {
+        setImageSrc(blob);
         const objectURL = URL.createObjectURL(blob);
-        setImageSrc(objectURL);
+        setImageSrcUrl(objectURL);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -84,7 +86,7 @@ export default function ImageUploader() {
           To Gray Scale
         </button>
         <button onClick={() => handleRequest("sepia")}>To Sepia</button>
-        <button>Rotate 90°</button>
+        <button onClick={() => handleRequest("rotate")}>Rotate 90°</button>
         <button onClick={() => handleRequest("resize", { perc: resizePerc })}>
           Resize
         </button>
@@ -101,10 +103,18 @@ export default function ImageUploader() {
               <img src={selectedFileUrl} alt="Selected" />
             </>
           )}
-          {imageSrc && (
+          {imageSrcUrl && (
             <>
               <label>Modified:</label>
-              <img src={imageSrc} alt="Modified" />
+              <img src={imageSrcUrl} alt="Modified" />
+              <button
+                onClick={() => {
+                  setSelectedFile(imageSrc);
+                  setSelectedFileUrl(imageSrcUrl);
+                }}
+              >
+                Load
+              </button>
             </>
           )}
         </div>

@@ -17,3 +17,7 @@ export const resize = async (req, res) => {
     res.status(400).json({ error: "Invalid argument" });
   }
 };
+
+export const rotate90 = async (req, res) => {
+  await handleRun(req, res, "rotate");
+}

@@ -1,5 +1,6 @@
 #include "Image.h"
 #include <math.h>
+#include <stdint.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
@@ -112,9 +113,30 @@ void Image_to_sepia(const Image *orig, Image *sepia)
   }
 }
 
-void Image_resize(const Image *orig, Image *resized, int percentage){
+void Image_resize(const Image *orig, Image *resized, int percentage)
+{
   ON_ERROR_EXIT(!(orig->allocation_ != NO_ALLOCATION && orig->channels >= 3), "The input image must have at least 3 channels.");
   Image_create(resized, orig->width * percentage / 100, orig->height * percentage / 100, orig->channels, false);
   ON_ERROR_EXIT(resized->data == NULL, "Error in creating the image");
   stbir_resize_uint8(orig->data, orig->width, orig->height, 0, resized->data, resized->width, resized->height, 0, orig->channels);
+}
+
+void Image_rotate_90(const Image *orig, Image *rotated)
+{
+  ON_ERROR_EXIT(!(orig->allocation_ != NO_ALLOCATION && orig->channels >= 3), "The input image must have at least 3 channels.");
+  Image_create(rotated, orig->height, orig->width, orig->channels, false);
+  ON_ERROR_EXIT(rotated->data == NULL, "Error in creating the image");
+
+  int h = orig->height - 1;
+
+  for (int i = 0; i < orig->width; i++)
+  {
+    for (int j = 0; j < orig->height; j++)
+    {
+      for (int l = 0; l < orig->channels; l++)
+      {
+        rotated->data[(i * rotated->width + (h - j)) * orig->channels + l] = orig->data[(j * orig->width + i) * orig->channels + l];
+      }
+    }
+  }
 }
