@@ -14,7 +14,7 @@
     {                                                                   \
       printf("Error in function: %s at line %d\n", __func__, __LINE__); \
       perror((message));                                                \
-      exit(1);                                                          \
+      return 0;                                                          \
     }                                                                   \
   } while (0)
 

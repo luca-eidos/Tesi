@@ -54,7 +54,12 @@ export const runWasi = async (filename, ...wasmArgs) => {
   );
   const instance = await WebAssembly.instantiate(wasm, importObject);
 
-  wasi.start(instance);
+  try{
+    wasi.start(instance);
+    console.log("WASI execution complete");
+  } catch {
+    console.log("WASI instance failed");
+  }
 };
 
 /**

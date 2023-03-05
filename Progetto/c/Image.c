@@ -40,7 +40,7 @@ void Image_create(Image *img, int width, int height, int channels, bool zeroed)
   }
 }
 
-void Image_save(const Image *img, const char *fname)
+int Image_save(const Image *img, const char *fname)
 {
   // Check if the file name ends in one of the .jpg/.JPG/.jpeg/.JPEG or .png/.PNG
   if (str_ends_in(fname, ".jpg") || str_ends_in(fname, ".JPG") || str_ends_in(fname, ".jpeg") || str_ends_in(fname, ".JPEG"))
@@ -55,6 +55,8 @@ void Image_save(const Image *img, const char *fname)
   {
     ON_ERROR_EXIT(false, "");
   }
+
+  return 1;
 }
 
 void Image_free(Image *img)
@@ -77,7 +79,7 @@ void Image_free(Image *img)
   }
 }
 
-void Image_to_gray(const Image *orig, Image *gray)
+int Image_to_gray(const Image *orig, Image *gray)
 {
   ON_ERROR_EXIT(!(orig->allocation_ != NO_ALLOCATION && orig->channels >= 3), "The input image must have at least 3 channels.");
   int channels = orig->channels == 4 ? 2 : 1;
@@ -92,9 +94,11 @@ void Image_to_gray(const Image *orig, Image *gray)
       *(pg + 1) = *(p + 3);
     }
   }
+
+  return 1;
 }
 
-void Image_to_sepia(const Image *orig, Image *sepia)
+int Image_to_sepia(const Image *orig, Image *sepia)
 {
   ON_ERROR_EXIT(!(orig->allocation_ != NO_ALLOCATION && orig->channels >= 3), "The input image must have at least 3 channels.");
   Image_create(sepia, orig->width, orig->height, orig->channels, false);
@@ -111,17 +115,21 @@ void Image_to_sepia(const Image *orig, Image *sepia)
       *(pg + 3) = *(p + 3);
     }
   }
+
+  return 1;
 }
 
-void Image_resize(const Image *orig, Image *resized, int percentage)
+int Image_resize(const Image *orig, Image *resized, int percentage)
 {
   ON_ERROR_EXIT(!(orig->allocation_ != NO_ALLOCATION && orig->channels >= 3), "The input image must have at least 3 channels.");
   Image_create(resized, orig->width * percentage / 100, orig->height * percentage / 100, orig->channels, false);
   ON_ERROR_EXIT(resized->data == NULL, "Error in creating the image");
   stbir_resize_uint8(orig->data, orig->width, orig->height, 0, resized->data, resized->width, resized->height, 0, orig->channels);
+
+  return 1;
 }
 
-void Image_rotate_90(const Image *orig, Image *rotated)
+int Image_rotate_90(const Image *orig, Image *rotated)
 {
   ON_ERROR_EXIT(!(orig->allocation_ != NO_ALLOCATION && orig->channels >= 3), "The input image must have at least 3 channels.");
   Image_create(rotated, orig->height, orig->width, orig->channels, false);
@@ -139,4 +147,22 @@ void Image_rotate_90(const Image *orig, Image *rotated)
       }
     }
   }
+
+  return 1;
+}
+
+int Image_adjust_brightness(const Image *orig, Image *adj, float brightness)
+{
+  ON_ERROR_EXIT(!(orig->allocation_ != NO_ALLOCATION && orig->channels >= 3), "The input image must have at least 3 channels.");
+  Image_create(adj, orig->width, orig->height, orig->channels, false);
+  ON_ERROR_EXIT(adj->data == NULL, "Error in creating the image");
+  int temp;
+
+  for (int i = 0; i < orig->height * orig->width * orig->channels; i++)
+  {
+    temp = orig->data[i] * brightness;
+    adj->data[i] = (uint8_t)(temp > 255 ? 255 : temp);
+  }
+
+  return 1;
 }

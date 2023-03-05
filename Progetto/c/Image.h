@@ -26,11 +26,12 @@ typedef struct
 
 void Image_load(Image *img, const char *fname);
 void Image_create(Image *img, int width, int height, int channels, bool zeroed);
-void Image_save(const Image *img, const char *fname);
+int Image_save(const Image *img, const char *fname);
 void Image_free(Image *img);
-void Image_to_gray(const Image *orig, Image *gray);
-void Image_to_sepia(const Image *orig, Image *sepia);
-void Image_resize(const Image *orig, Image *resized, int percentage);
-void Image_rotate_90(const Image *orig, Image *rotated);
+int Image_to_gray(const Image *orig, Image *gray);
+int Image_to_sepia(const Image *orig, Image *sepia);
+int Image_resize(const Image *orig, Image *resized, int percentage);
+int Image_rotate_90(const Image *orig, Image *rotated);
+int Image_adjust_brightness(const Image *orig, Image *adj, float brightness);
 
 #endif

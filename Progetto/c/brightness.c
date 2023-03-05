@@ -11,12 +11,13 @@ int main(int argc, char **argv)
 
   Image img_input, img_output;
   int percentage = atoi(argv[3]);
+  float brightness = (float) percentage / 100.0;
 
   Image_load(&img_input, argv[1]);
   ON_ERROR_EXIT(img_input.data == NULL, "Error in loading the image");
 
-  // Convert the image to gray
-  if (Image_resize(&img_input, &img_output, percentage))
+  // Adjust the brightness
+  if (Image_adjust_brightness(&img_input, &img_output, brightness))
   {
     // Save image
     Image_save(&img_output, argv[2]);

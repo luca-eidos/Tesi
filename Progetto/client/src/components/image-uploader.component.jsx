@@ -6,6 +6,7 @@ export default function ImageUploader() {
   const [imageSrc, setImageSrc] = useState(null);
   const [imageSrcUrl, setImageSrcUrl] = useState(null);
   const [resizePerc, setResizePerc] = useState(100);
+  const [brightnessPerc, setBrightnessPerc] = useState(100);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -63,10 +64,11 @@ export default function ImageUploader() {
           <label htmlFor="resize">Brightness (%)</label>
           <input
             type="range"
-            name="resize"
-            min={1}
-            max={100}
-            defaultValue={100}
+            name="brightness"
+            min={50}
+            max={150}
+            defaultValue={brightnessPerc}
+            onChange={(e) => setBrightnessPerc(parseInt(e.target.value))}
           />
         </div>
 
@@ -90,9 +92,12 @@ export default function ImageUploader() {
         <button onClick={() => handleRequest("resize", { perc: resizePerc })}>
           Resize
         </button>
+        <button onClick={() => handleRequest("brightness", { perc: brightnessPerc })}>
+          Adjust Brightness
+        </button>
         <button>Blur</button>
         <button>Sharpen</button>
-        <button>Convert JPG/PNG</button>
+        <button onClick={() => handleRequest("convert")}>Convert JPG/PNG</button>
         <button>Crop</button>
       </div>
       {selectedFileUrl && (

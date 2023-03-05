@@ -9,19 +9,14 @@ int main(int argc, char **argv)
     exit(1);
   }
 
-  Image img_input, img_output;
+  Image img_input;
 
   Image_load(&img_input, argv[1]);
   ON_ERROR_EXIT(img_input.data == NULL, "Error in loading the image");
 
-  // Convert the image to gray
-  if (Image_to_gray(&img_input, &img_output))
-  {
-    // Save image
-    Image_save(&img_output, argv[2]);
-  }
+  // Save image
+  Image_save(&img_input, argv[2]);
 
   // Release memory
   Image_free(&img_input);
-  Image_free(&img_output);
 }
