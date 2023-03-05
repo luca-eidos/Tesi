@@ -95,7 +95,7 @@ export default function ImageUploader() {
         <button onClick={() => handleRequest("brightness", { perc: brightnessPerc })}>
           Adjust Brightness
         </button>
-        <button>Blur</button>
+        <button onClick={() => handleRequest("blur")}>Blur</button>
         <button>Sharpen</button>
         <button onClick={() => handleRequest("convert")}>Convert JPG/PNG</button>
         <button>Crop</button>

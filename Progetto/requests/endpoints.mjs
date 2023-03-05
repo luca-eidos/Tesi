@@ -57,3 +57,7 @@ export const brightness = async (req, res) => {
     res.status(400).json({ error: "Invalid argument" });
   }
 };
+
+export const imageBlur = async (req, res) =>{
+  await handleRun(req, res, "blur");
+}
