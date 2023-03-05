@@ -66,6 +66,12 @@ void apply_gaussian_blur(unsigned char *image, int width, int height, int channe
 
 int main(int argc, char **argv)
 {
+  if (argc != 3)
+  {
+    fprintf(stderr, "Usage: %s <input> <output>\n", argv[0]);
+    return 1;
+  }
+
   int width, height, channels;
   unsigned char *image = stbi_load(argv[1], &width, &height, &channels, 0);
 
