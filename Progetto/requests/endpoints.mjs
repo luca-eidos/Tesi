@@ -61,3 +61,7 @@ export const brightness = async (req, res) => {
 export const imageBlur = async (req, res) =>{
   await handleRun(req, res, "blur");
 }
+
+export const sharpen = async (req, res) =>{
+  await handleRun(req, res, "sharpen");
+}

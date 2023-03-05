@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdint.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
@@ -27,7 +28,8 @@ void sharpen(unsigned char *data, int width, int height, int channels)
       for (int c = 0; c < channels; c++)
       {
         int idx = (y * stride) + (x * channels) + c;
-        temp[idx] = 5 * data[idx] - data[idx - channels] - data[idx + channels] - data[idx - stride] - data[idx + stride];
+        float val = 5.0 * data[idx] - data[idx - channels] - data[idx + channels] - data[idx - stride] - data[idx + stride];
+        temp[idx] = (uint8_t)(val > 255 ? 255 : val);
       }
     }
   }
@@ -48,7 +50,7 @@ int main(int argc, char **argv)
   }
 
   int width, height, orig_channels;
-  unsigned char *image = stbi_load("input.png", &width, &height, &orig_channels, CHANNELS);
+  unsigned char *image = stbi_load(argv[1], &width, &height, &orig_channels, CHANNELS);
   if (!image)
   {
     printf("Failed to load image!\n");
