@@ -4,7 +4,7 @@ import cors from "cors";
 import multer from "multer";
 
 import { validateImage, tmpFolder } from "./requests/utils.mjs";
-import { toGrayScale, toSepia, resize, rotate90, convert, brightness, imageBlur, sharpen } from "./requests/endpoints.mjs";
+import { toGrayScale, toSepia, resize, rotate90, convert, brightness, imageBlur, sharpen, contrast } from "./requests/endpoints.mjs";
 
 const app = express();
 
@@ -28,5 +28,6 @@ app.post("/convert", validateImage, convert);
 app.post("/brightness", validateImage, brightness);
 app.post("/blur", validateImage, imageBlur);
 app.post("/sharpen", validateImage, sharpen);
+app.post("/contrast", validateImage, contrast);
 
 app.listen(port);

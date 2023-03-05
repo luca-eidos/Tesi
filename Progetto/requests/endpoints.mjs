@@ -65,3 +65,13 @@ export const imageBlur = async (req, res) =>{
 export const sharpen = async (req, res) =>{
   await handleRun(req, res, "sharpen");
 }
+
+export const contrast = async (req, res) => {
+  const args = JSON.parse(req.body.args) || {};
+  // console.log(args);
+  if(args.perc >= -100 && args.perc <= 100){
+    await handleRun(req, res, "contrast", String(args.perc));
+  } else {
+    res.status(400).json({ error: "Invalid argument" });
+  }
+};

@@ -7,6 +7,7 @@ export default function ImageUploader() {
   const [imageSrcUrl, setImageSrcUrl] = useState(null);
   const [resizePerc, setResizePerc] = useState(100);
   const [brightnessPerc, setBrightnessPerc] = useState(100);
+  const [contrastPerc, setContrastPerc] = useState(0);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -73,13 +74,14 @@ export default function ImageUploader() {
         </div>
 
         <div className="container">
-          <label htmlFor="resize">Contrast (%)</label>
+          <label htmlFor="contrast">Contrast</label>
           <input
             type="range"
-            name="resize"
-            min={1}
+            name="contrast"
+            min={-100}
             max={100}
-            defaultValue={50}
+            defaultValue={contrastPerc}
+            onChange={(e) => setContrastPerc(parseInt(e.target.value))}
           />
         </div>
 
@@ -94,6 +96,9 @@ export default function ImageUploader() {
         </button>
         <button onClick={() => handleRequest("brightness", { perc: brightnessPerc })}>
           Adjust Brightness
+        </button>
+        <button onClick={() => handleRequest("contrast", { perc: contrastPerc })}>
+          Adjust Contrast
         </button>
         <button onClick={() => handleRequest("blur")}>Blur</button>
         <button onClick={() => handleRequest("sharpen")}>Sharpen</button>

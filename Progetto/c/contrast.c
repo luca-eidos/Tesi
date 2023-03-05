@@ -2,7 +2,9 @@
 #include <stdint.h>
 #include <math.h>
 
+#define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb/stb_image_write.h"
 
 void adjust_contrast(unsigned char *image_data, int image_width, int image_height, int num_channels, float contrast)
@@ -55,7 +57,8 @@ int main(int argc, char **argv)
   }
 
   // Adjust contrast
-  float contrast = atoi(argv[3]) / 100.0;
+  float contrast = (float)atoi(argv[3]);
+  printf("Contrast: %f\n", contrast);
   adjust_contrast(image, width, height, channels, contrast);
 
   // Save output image
