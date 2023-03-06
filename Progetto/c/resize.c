@@ -6,7 +6,7 @@ int main(int argc, char **argv)
   if (argc != 4)
   {
     fprintf(stderr, "Usage: %s <input> <output> <percentage>\n", argv[0]);
-    exit(1);
+    return 1;
   }
 
   Image img_input, img_output;

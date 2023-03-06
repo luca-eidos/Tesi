@@ -166,3 +166,25 @@ int Image_adjust_brightness(const Image *orig, Image *adj, float brightness)
 
   return 1;
 }
+
+int Image_crop(const Image *orig, Image *cropped, int x1, int y1, int x2, int y2)
+{
+  int w = x2 - x1, h = y2 - y1;
+
+  ON_ERROR_EXIT(!(orig->allocation_ != NO_ALLOCATION && orig->channels >= 3), "The input image must have at least 3 channels.");
+  Image_create(cropped, w, h, orig->channels, false);
+  ON_ERROR_EXIT(cropped->data == NULL, "Error in creating the image");
+
+  for (int i = x1; i < x2; i++)
+  {
+    for (int j = y1; j < y2; j++)
+    {
+      for (int k = 0; k < orig->channels; k++)
+      {
+        cropped->data[((j - y1) * w + (i - x1)) * orig->channels + k] = orig->data[((j * orig->width) + i) * orig->channels + k];
+      }
+    }
+  }
+
+  return 1;
+}

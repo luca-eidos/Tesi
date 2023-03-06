@@ -44,7 +44,7 @@ int main(int argc, char **argv)
   if (argc != 4)
   {
     fprintf(stderr, "Usage: %s <input> <output> <percentage>\n", argv[0]);
-    exit(1);
+    return 1;
   }
 
   // Load input image
@@ -58,7 +58,6 @@ int main(int argc, char **argv)
 
   // Adjust contrast
   float contrast = (float)atoi(argv[3]);
-  printf("Contrast: %f\n", contrast);
   adjust_contrast(image, width, height, channels, contrast);
 
   // Save output image

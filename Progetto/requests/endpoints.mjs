@@ -75,3 +75,14 @@ export const contrast = async (req, res) => {
     res.status(400).json({ error: "Invalid argument" });
   }
 };
+
+export const crop = async (req, res) => {
+  const args = JSON.parse(req.body.args) || {};
+  const {x1, y1, x2, y2} = args;
+
+  if(x1 && y1 && x2 && y2){
+    await handleRun(req, res, "crop", String(x1), String(y1), String(x2), String(y2));
+  } else {
+    res.status(400).json({ error: "Invalid argument" });
+  }
+};

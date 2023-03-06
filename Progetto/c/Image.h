@@ -33,5 +33,6 @@ int Image_to_sepia(const Image *orig, Image *sepia);
 int Image_resize(const Image *orig, Image *resized, int percentage);
 int Image_rotate_90(const Image *orig, Image *rotated);
 int Image_adjust_brightness(const Image *orig, Image *adj, float brightness);
+int Image_crop(const Image *orig, Image *cropped, int x1, int y1, int x2, int y2);
 
 #endif

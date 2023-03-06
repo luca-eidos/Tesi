@@ -1,3 +1,3 @@
 #! /bin/bash
 
-nodemon --experimental-wasi-unstable-preview1 index.mjs
+nodemon -x 'node --experimental-wasi-unstable-preview1 index.mjs || touch index.mjs'
