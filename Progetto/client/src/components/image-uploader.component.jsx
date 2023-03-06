@@ -20,6 +20,10 @@ export default function ImageUploader() {
   };
 
   const handleRequest = (endpoint, args = undefined) => {
+    if(!selectedFile){
+      return;
+    }
+    
     const formData = new FormData();
     formData.append("image", selectedFile);
     if (args) formData.append("args", JSON.stringify(args));
