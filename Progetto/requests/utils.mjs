@@ -1,6 +1,7 @@
 import { WASI } from "wasi";
 import { argv, env } from "node:process";
 import { readFile } from "node:fs/promises";
+import { performance } from "perf_hooks";
 import tmp from "tmp";
 import fs from "fs";
 
@@ -54,10 +55,11 @@ export const runWasi = async (filename, ...wasmArgs) => {
   );
   const instance = await WebAssembly.instantiate(wasm, importObject);
 
-  try{
-    console.time(filename)
-    wasi.start(instance);
-    console.timeEnd(filename);
+  try {
+    const { cpuUsage, memoryUsage, time } = measure(wasi.start, instance);
+    console.log(
+      `${filename}: CPU usage: ${cpuUsage.user}ms user, ${cpuUsage.system}ms system, Memory usage: ${memoryUsage} bytes, Time: ${time}ms`
+    );
   } catch {
     console.log("WASI instance failed");
     console.timeEnd(filename);
@@ -93,4 +95,22 @@ export const handleRun = async (req, res, filename, ...otherArgs) => {
       }
     });
   });
+};
+
+export const measure = (fn, ...args) => {
+  const startUsage = process.cpuUsage();
+  const start = performance.now();
+  const result = fn(...args);
+  const elapsed = performance.now() - start;
+  const endUsage = process.cpuUsage(startUsage);
+
+  return {
+    result,
+    cpuUsage: {
+      user: endUsage.user - startUsage.user,
+      system: endUsage.system - startUsage.system,
+    },
+    memoryUsage: process.memoryUsage().heapUsed,
+    time: elapsed,
+  };
 };
