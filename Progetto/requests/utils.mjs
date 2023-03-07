@@ -55,15 +55,14 @@ export const runWasi = async (filename, ...wasmArgs) => {
   );
   const instance = await WebAssembly.instantiate(wasm, importObject);
 
-  try {
-    const { cpuUsage, memoryUsage, time } = measure(wasi.start, instance);
-    console.log(
-      `${filename}: CPU usage: ${cpuUsage.user}ms user, ${cpuUsage.system}ms system, Memory usage: ${memoryUsage} bytes, Time: ${time}ms`
-    );
-  } catch {
+  // try {
+  const { cpuUsage, memoryUsage, time } = measure(wasi.start, instance);
+  console.log(
+    `${filename}: CPU usage: ${cpuUsage.user}ms user, ${cpuUsage.system}ms system, Memory usage: ${memoryUsage} bytes, Time: ${time}ms`
+  );
+  /*} catch {
     console.log("WASI instance failed");
-    console.timeEnd(filename);
-  }
+  }*/
 };
 
 /**
