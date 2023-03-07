@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function ImageUploader() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -20,10 +20,10 @@ export default function ImageUploader() {
   };
 
   const handleRequest = (endpoint, args = undefined) => {
-    if(!selectedFile){
+    if (!selectedFile) {
       return;
     }
-    
+
     const formData = new FormData();
     formData.append("image", selectedFile);
     if (args) formData.append("args", JSON.stringify(args));
@@ -55,6 +55,14 @@ export default function ImageUploader() {
           accept=".jpg,.png"
           onChange={handleFileChange}
         />
+        <button
+          onClick={() => {
+            try {
+              const img = document.getElementById("original-image");
+              console.log(img.naturalWidth, img.naturalHeight);
+            } catch {}
+          }}
+        >Print size to console</button>
         {imageSrcUrl && (
           <button
             onClick={() => {
@@ -163,6 +171,7 @@ export default function ImageUploader() {
                 <label>Original:</label>
                 <div style={{ position: "relative" }}>
                   <img
+                    id="original-image"
                     src={selectedFileUrl}
                     style={{
                       top: 0,
